@@ -5,19 +5,40 @@ import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHt
 import { expressMiddleware } from "@apollo/server/express4";
 import bodyParser from "body-parser";
 import cors from "cors";
+import fakeData from "./fakeData/index.js";
 
 const app = express();
 const httpServer = http.createServer(app);
 
 const typeDefs = `#graphql
+    type Folder {
+        id: String,
+        name: String,
+        createAt: String,
+        author: Author,
+    }
+
+    type Author {
+      id: String,
+      name: String,
+    }
+
     type Query {
-        name: String
+      folders: [Folder],
     }
 `;
 const resolvers = {
   Query: {
-    name: () => {
-      return "ThanhTu";
+    folders: () => {
+      return fakeData.folders;
+    },
+  },
+  Folder: {
+    author: (parent, args) => {
+      console.log({ parent, args });
+      const authorId = parent.authorId;
+      return fakeData.authors.find((author) => author.id === authorId);
+      // return { id: "123", name: "ThanhTu" };
     },
   },
 };
