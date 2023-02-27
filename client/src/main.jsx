@@ -9,6 +9,7 @@ import "@fontsource/roboto/700.css";
 import router from "./router";
 import { Container } from "@mui/system";
 import "./firebase/config";
+import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
