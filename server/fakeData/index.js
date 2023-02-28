@@ -24,7 +24,7 @@ export default {
     },
     {
       id: 3,
-      name: "Home",
+      name: "Work",
       createAt: "2022-9-18T03:42:13Z",
       authorId: 123,
     },
