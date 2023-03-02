@@ -11,7 +11,7 @@ import { useLoaderData } from "react-router-dom";
 
 export default function Note() {
   const { note } = useLoaderData();
-  const [editorState, setEditorStae] = useState(() => {
+  const [editorState, setEditorState] = useState(() => {
     return EditorState.createEmpty();
   });
   const [rawHTML, setRawHTML] = useState(note.content);
@@ -22,7 +22,8 @@ export default function Note() {
       blockFromHTML.contentBlocks,
       blockFromHTML.entityMap
     );
-    setEditorStae(EditorState.createWithContent(state));
+    setEditorState(EditorState.createWithContent(state));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [note.id]);
 
   useEffect(() => {
@@ -30,7 +31,7 @@ export default function Note() {
   }, [note.content]);
 
   const handleOnChange = (e) => {
-    setEditorStae(e);
+    setEditorState(e);
     setRawHTML(draftToHtml(convertToRaw(e.getCurrentContent())));
   };
 
