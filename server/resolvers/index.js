@@ -2,8 +2,18 @@ import fakeData from "../fakeData/index.js";
 import FolderModel from "../models/FolderModel.js";
 import AuthorModel from "../models/AuthorModel.js";
 import NoteModel from "../models/NoteModel.js";
+import { GraphQLScalarType } from "graphql";
 
 export const resolvers = {
+  Date: new GraphQLScalarType({
+    name: "Date",
+    parseValue(value) {
+      return new Date(value);
+    },
+    serialize(value) {
+      return value.toISOString();
+    },
+  }),
   Query: {
     folders: async (parent, args, context) => {
       const folders = await FolderModel.find({
